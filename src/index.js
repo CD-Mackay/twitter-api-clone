@@ -12,6 +12,12 @@ const db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'connection error: '));
 
+app.use((req, res, next) => {
+  req.io = io;
+
+  return next();
+});
+
 const PORT = process.env.PORT | 3002
 
 server.listen(PORT, () => console.log('Server listening on port: ', PORT));
